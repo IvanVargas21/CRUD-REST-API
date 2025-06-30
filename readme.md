@@ -1,0 +1,14 @@
+## Project Structure
+- node_modules
+- src
+-- config - contains database connection etc.
+-- controllers 
+-- data - hold our SQL queries etc.
+-- middlewares - centralized error handling and input validations.
+-- models - contains services connecting to the database and queries etc.
+-- routes
+-- index.js - entry file for node.js application.
+- .env
+- package-lock.json
+- package.json
+- readme.md
