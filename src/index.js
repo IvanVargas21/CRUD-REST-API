@@ -2,6 +2,9 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import pool from  './config/db.js'; 
+import userRoutes from "./routes/userRoutes.js";
+import errorHandling from "./middlewares/errorHandler.js";
+import createUserTable from "./data/createUserTable.js";
 
 
 // Import the database connection
@@ -19,8 +22,14 @@ app.use(cors());
 
 
 // Routes
+app.use("/api", userRoutes);
 
 // Error handling middleware
+app.use(errorHandling);
+
+// Create table before starting the server
+createUserTable();
+
 // Testing POSTGRES Connection
 app.get('/', async (req, res) => {
   const result = await pool.query("SELECT current_database()");
