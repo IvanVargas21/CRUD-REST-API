@@ -1,7 +1,10 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import pool from  './config/db.js'; 
 
+
+// Import the database connection
 // load environment variables from .env file into process.env
 dotenv.config();
 
@@ -18,6 +21,12 @@ app.use(cors());
 // Routes
 
 // Error handling middleware
+// Testing POSTGRES Connection
+app.get('/', async (req, res) => {
+  const result = await pool.query("SELECT current_database()");
+
+  res.send(`The database name is: ${result.rows[0].current_database}`);
+}); 
 
 // Server running
 app.listen(port, () => {
