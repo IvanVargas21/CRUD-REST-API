@@ -20,6 +20,16 @@ app.use(express.json());
 // enable CORS for all routes
 app.use(cors());
 
+// Loggin Middleware
+app.use((req, res, next) => {
+  console.log(`Incoming request:`, {
+    method: req.method,
+    url: req.url, 
+    headers: req.headers,
+    body: req.body,
+  });
+  next();
+});
 
 // Routes
 app.use("/api", userRoutes);
