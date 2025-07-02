@@ -18,6 +18,10 @@ const handleResponse = (res, status, message, data = null) => {
 export const createUser = async (req, res, next) => {
   const { name, email } = req.body;
   try{
+      const { name, email} = req.body;
+      if(!name || !email) {
+        return handleResponse(res, 400, "Name and email are required");
+      }
       const newUser = await createUserService(name, email);
       handleResponse(res, 201, "User created successfully", newUser)
   }catch(err) {
@@ -56,7 +60,6 @@ export const updateUser = async (req, res, next) => {
 }
 
 export const deleteUser = async (req, res, next) => {
-  const { name, email } = req.body;
   try{
       const deletedUser = await deleteUserService(req.params.id);
       if (!deletedUser) return handleResponse(res, 404, "User not found");
